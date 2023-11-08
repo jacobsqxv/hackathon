@@ -1,4 +1,4 @@
-from django.conf import settings
+from ecommerce.settings import production
 from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -8,7 +8,7 @@ from .serializers import *
 import pyrebase
 
 # firebase connection
-firebase = pyrebase.initialize_app(settings.FIREBASE_CONFIG)
+firebase = pyrebase.initialize_app(production.FIREBASE_CONFIG)
 authe = firebase.auth()
 database = firebase.database()
 
