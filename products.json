@@ -1,0 +1,402 @@
+[
+    {
+        "image_url": "spfOne",
+        "name": "Cap for Boys",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrFour",
+        "name": "Tea Table",
+        "price": "180.00",
+        "color": "Gray",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfThree",
+        "name": "Headphones",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfFour",
+        "name": "Sun glasses",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfOne",
+        "name": "Cap for Boys",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfTwo",
+        "name": "Tea Table",
+        "price": "180.00",
+        "color": "Gray",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfThree",
+        "name": "Headphones",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfFour",
+        "name": "Sun glasses",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerOne",
+        "name": "Flower Base",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerTwo",
+        "name": "New Backpack",
+        "price": "180.00",
+        "color": "Gray",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerThree",
+        "name": "Household materials",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerFour",
+        "name": "Travel Bag",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrOne",
+        "name": "Round Table Clock",
+        "price": "44.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrThree",
+        "name": "cloth Basket",
+        "price": "80.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrFour",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrFour",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerFour",
+        "name": "Travel Bag",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrOne",
+        "name": "Round Table Clock",
+        "price": "44.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrThree",
+        "name": "cloth Basket",
+        "price": "80.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfThree",
+        "name": "Headphones",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfFour",
+        "name": "Sun glasses",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerOne",
+        "name": "Flower Base",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfOne",
+        "name": "Cap for Boys",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfTwo",
+        "name": "Tea Table",
+        "price": "180.00",
+        "color": "Gray",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfThree",
+        "name": "Headphones",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfFour",
+        "name": "Sun glasses",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerOne",
+        "name": "Flower Base",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerTwo",
+        "name": "New Backpack",
+        "price": "180.00",
+        "color": "Gray",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerThree",
+        "name": "Household materials",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerFour",
+        "name": "Travel Bag",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrOne",
+        "name": "Round Table Clock",
+        "price": "44.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrThree",
+        "name": "cloth Basket",
+        "price": "80.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrFour",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrFour",
+        "name": "Funny toys for babies",
+        "price": "60.00",
+        "color": "Mixed",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerFour",
+        "name": "Travel Bag",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "false",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrOne",
+        "name": "Round Table Clock",
+        "price": "44.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrTwo",
+        "name": "Smart Watch",
+        "price": "250.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "newArrThree",
+        "name": "cloth Basket",
+        "price": "80.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfThree",
+        "name": "Headphones",
+        "price": "25.00",
+        "color": "Mixed",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfFour",
+        "name": "Sun glasses",
+        "price": "220.00",
+        "color": "Black",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "bestSellerOne",
+        "name": "Flower Base",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    },
+    {
+        "image_url": "spfOne",
+        "name": "Cap for Boys",
+        "price": "35.00",
+        "color": "Blank and White",
+        "badge": "true",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+    }
+]

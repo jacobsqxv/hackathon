@@ -6,3 +6,5 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+ALLOWED_HOSTS = ["afe0-196-61-44-226.ngrok-free.app"]

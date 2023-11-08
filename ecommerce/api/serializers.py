@@ -8,18 +8,45 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
+        skip_fields = ["product_id"]
+
+        def to_representation(self, instance):
+            data = super().to_representation(instance)
+            # Remove the skipped field(s) from the serialized data
+            for field in self.skip_fields:
+                data.pop(field, None)
+
+            return data
 
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = "__all__"
+        skip_fields = ["cart_id"]
+
+        def to_representation(self, instance):
+            data = super().to_representation(instance)
+            # Remove the skipped field(s) from the serialized data
+            for field in self.skip_fields:
+                data.pop(field, None)
+
+            return data
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
+        skip_fields = ["order_id"]
+
+        def to_representation(self, instance):
+            data = super().to_representation(instance)
+            # Remove the skipped field(s) from the serialized data
+            for field in self.skip_fields:
+                data.pop(field, None)
+
+            return data
 
 
 class UserSerializer(serializers.ModelSerializer):
