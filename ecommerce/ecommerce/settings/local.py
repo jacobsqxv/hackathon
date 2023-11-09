@@ -7,4 +7,4 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ["afe0-196-61-44-226.ngrok-free.app"]
+ALLOWED_HOSTS = ["afe0-196-61-44-226.ngrok-free.app", "localhost"]

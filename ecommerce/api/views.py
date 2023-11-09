@@ -28,18 +28,17 @@ django_request = HttpRequest()
 @api_view(["GET"])
 def apiOverview(request):
     api_urls = {
-        "Create User": "/user/add/",
+        "Register": "/register/",
+        "Sign In": "/signin/",
         "Profile": "/user/<str:user_id>/",
         "Update": "/user/<str:user_id>/",
         "Delete": "/user/<str:user_id>/",
         "Products": "/products/",
         "Add": "/products/add/",
         "View": "/products/<str:product_id>/",
-        "Update": "/products/update/<str:product_id>/",
         "Delete": "/products/delete/<str:product_id>/",
         "Cart": "/cart/",
         "Add Item to Cart": "/cart/add",
-        "Update Cart": "/cart/update/<str:cart_id>/",
         "Delete Cart Items": "/cart/delete/<str:cart_id>/",
         "Orders List": "/orders/",
         "Add Order": "/orders/add",
@@ -73,10 +72,26 @@ def create_user(request, format=None):
     except Exception as e:
         return Response({"error": "Failed to create user: " + str(e)}, status=400)
 
+# sign in user
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def sign_in_user(request, format=None):
+    data = request.data
+    email = data.get("email")
+    password = data.get("password")
+    try:
+        user = authe.sign_in_with_email_and_password(
+            email=email,
+            password=password,
+        )
+        auth_token = user['idToken']
+        return Response({"auth_token": auth_token}, status=200)    
+    except Exception as e:
+        return Response({"error": "Failed to sign in: " + str(e)}, status=400)
+
 
 # add a product
 @api_view()
-@permission_classes([AllowAny])
 def add_product(request):
     try:
         node_serializer = ProductSerializer(data=request.data)
@@ -229,19 +244,15 @@ def login_view(request, format=None):
     try:
         user = authe.sign_in_with_email_and_password(email, password)
 
-        return Response({"user_id": user["localId"]}, status=status.HTTP_202_ACCEPTED)
+        return Response({"user_id": user.uid}, status=status.HTTP_202_ACCEPTED)
     except Exception as e:
         return Response(
             {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
         )
 
 
-# User
-
-
 # view user profile
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def user_profile(request, user_id):
     django_request.request = request
     django_request.method = "GET"
@@ -278,7 +289,7 @@ def product_details(request, product_id):
 
 # product list
 @api_view(["GET"])
-@permission_classes([AllowAny])
+# @permission_classes([AllowAny])
 def product_list(request):
     django_request.request = request
     django_request.method = "GET"
@@ -288,7 +299,6 @@ def product_list(request):
 
 # cart list
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def cart_list(request):
     django_request.request = request
     django_request.method = "GET"
@@ -298,7 +308,6 @@ def cart_list(request):
 
 # update product info
 @api_view()
-@permission_classes([AllowAny])
 def update_product(request, product_id):
     django_request.request = request
     django_request.method = "GET"
@@ -307,7 +316,6 @@ def update_product(request, product_id):
 
 # delete product
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def delete_product(request, product_id):
     django_request.request = request
     django_request.method = "GET"
@@ -319,7 +327,6 @@ def delete_product(request, product_id):
 
 # update cart
 @api_view(["GET", "POST"])
-@permission_classes([AllowAny])
 def update_cart(request, cart_id):
     django_request.request = request
     django_request.method = "POST"
@@ -327,8 +334,7 @@ def update_cart(request, cart_id):
 
 
 # delete cart
-@api_view(["GET"])
-@permission_classes([AllowAny])
+@api_view(["DELETE"])
 def delete_cart(request, cart_id):
     django_request.request = request
     django_request.method = "POST"
@@ -338,7 +344,6 @@ def delete_cart(request, cart_id):
 # Orders
 # place order
 @api_view(["POST"])
-@permission_classes([AllowAny])
 def place_order(request):
     try:
         node_serializer = OrderSerializer(data=request.data)
@@ -366,7 +371,6 @@ def place_order(request):
 
 # order list
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def order_list(request):
     django_request.request = request
     django_request.method = "POST"
@@ -375,7 +379,6 @@ def order_list(request):
 
 # delete order
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def delete_order(request, order_id):
     django_request.request = request
     django_request.method = "POST"

@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     path("", views.apiOverview, name="api-overview"),
     # users
-    path("user/add/", views.create_user, name="create-user"),
+    path("register/", views.create_user, name="register"),
+    path("signin/", views.sign_in_user, name="signin"),
     path("user/<str:user_id>/", views.user_profile, name="user-profile"),
     path("user/update/<str:user_id>/", views.update_user, name="update-user"),
     path("user/delete/<str:user_id>/", views.delete_user, name="delete-user"),

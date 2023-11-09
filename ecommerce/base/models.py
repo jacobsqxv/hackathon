@@ -24,8 +24,12 @@ class Cart(models.Model):
     user_id = models.CharField(max_length=250)
     cart_id = models.CharField(max_length=250, blank=True)
     product_id = models.CharField(max_length=250)
-    quantity = models.CharField(max_length=3)
+    
 
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items", null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='cartitems')
+    quantity = models.CharField(max_length=3)
 
 class Order(models.Model):
     order_id = models.CharField(max_length=250, blank=True)
