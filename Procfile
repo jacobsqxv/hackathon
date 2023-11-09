@@ -1,3 +1,3 @@
-web: gunicorn ecommerce.wsgi
+web: gunicorn wsgi
 release: python manage.py makemigrations --noinput
 release: python manage.py migrate --noinput
