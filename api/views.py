@@ -26,6 +26,7 @@ django_request = HttpRequest()
 
 # list of endpoints
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def apiOverview(request):
     api_urls = {
         "Register": "/register/",
