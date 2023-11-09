@@ -7,7 +7,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["drf-ecommerce-04cca0f2b2a5.herokuapp.com/", "localhost", "127.0.0.1"]
 
 FIREBASE_CONFIG = {
     "apiKey": "AIzaSyAlqb5H_c3PprLJeelpoCnU_08DZUcBDk4",
