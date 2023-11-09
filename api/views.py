@@ -1,4 +1,4 @@
-from ecommerce.settings import production
+from settings import production
 from django.contrib.auth import authenticate, login
 from django.http import HttpRequest
 from rest_framework.response import Response
