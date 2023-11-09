@@ -121,7 +121,6 @@ def add_product(request):
 
 # add item to cart
 @api_view()
-@permission_classes([AllowAny])
 def add_to_cart(request):
     try:
         node_serializer = CartSerializer(data=request.data)
@@ -169,6 +168,7 @@ def update_entry(request, key, child_node, serializer):
 
 # list of items
 @api_view(["GET"])
+@permission_classes
 def item_list(request, child_node, node_serializer):
     try:
         item_info = database.child(child_node).get().val()
