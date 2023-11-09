@@ -1,10 +1,9 @@
 from settings import production
-from django.contrib.auth import authenticate, login
 from django.http import HttpRequest
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework import status, permissions
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import status
 from .serializers import *
 import pyrebase, firebase_admin
 from firebase_admin import credentials, auth, db
@@ -25,7 +24,7 @@ django_request = HttpRequest()
 
 
 # list of endpoints
-@api_view(["GET"])
+@api_view()
 @permission_classes([AllowAny])
 def apiOverview(request):
     api_urls = {
@@ -86,13 +85,17 @@ def sign_in_user(request, format=None):
             password=password,
         )
         auth_token = user['idToken']
-        return Response({"auth_token": auth_token}, status=200)    
+        response = Response({"auth_token": auth_token}, status=200)
+        response['Authorization'] = f'{auth_token}'  
+        print(response) 
+        return response 
     except Exception as e:
         return Response({"error": "Failed to sign in: " + str(e)}, status=400)
 
 
 # add a product
-@api_view()
+@api_view(["POST"])
+@permission_classes([AllowAny])
 def add_product(request):
     try:
         node_serializer = ProductSerializer(data=request.data)
@@ -122,6 +125,7 @@ def add_product(request):
 
 # add item to cart
 @api_view()
+@permission_classes([AllowAny])
 def add_to_cart(request):
     try:
         node_serializer = CartSerializer(data=request.data)
@@ -149,6 +153,7 @@ def add_to_cart(request):
 
 # update entry information
 @api_view()
+@permission_classes([IsAuthenticated])
 def update_entry(request, key, child_node, serializer):
     product_info = database.child(child_node).child(key).get().val()
     if product_info is None:
@@ -168,8 +173,8 @@ def update_entry(request, key, child_node, serializer):
 
 
 # list of items
-@api_view(["GET"])
-@permission_classes
+@api_view()
+@permission_classes([AllowAny])
 def item_list(request, child_node, node_serializer):
     try:
         item_info = database.child(child_node).get().val()
@@ -177,7 +182,6 @@ def item_list(request, child_node, node_serializer):
 
         if item_info:
             for item_key, item_data in item_info.items():
-                # Ensure that item_data is a dictionary before appending
                 if isinstance(item_data, dict):
                     items.append(item_data)
 
@@ -189,7 +193,6 @@ def item_list(request, child_node, node_serializer):
                     item_serializer.errors, status=status.HTTP_400_BAD_REQUEST
                 )
         else:
-            # If no items found, return an empty list
             response_data = {
                 "message": f"{child_node} is empty: {str(e)}",
             }
@@ -203,7 +206,8 @@ def item_list(request, child_node, node_serializer):
 
 
 # view detailed information
-@api_view(["GET"])
+@api_view()
+@permission_classes([AllowAny])
 def item_details(request, key, child_node):
     try:
         object_detail = database.child(child_node).child(key).get().val()
@@ -221,9 +225,9 @@ def item_details(request, key, child_node):
         }
         return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 # delete record
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_item(request, key, child_node):
     try:
         database.child(child_node).child(key).remove()
@@ -253,7 +257,8 @@ def login_view(request, format=None):
 
 
 # view user profile
-@api_view(["GET"])
+@api_view()
+@permission_classes([IsAuthenticated])
 def user_profile(request, user_id):
     django_request.request = request
     django_request.method = "GET"
@@ -262,6 +267,7 @@ def user_profile(request, user_id):
 
 # update user
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def update_user(request, user_id):
     django_request.request = request
     django_request.method = "GET"
@@ -269,7 +275,8 @@ def update_user(request, user_id):
 
 
 # delete user
-@api_view(["GET"])
+@api_view()
+@permission_classes([IsAuthenticated])
 def delete_user(request, user_id):
     django_request.request = request
     django_request.method = "GET"
@@ -280,7 +287,7 @@ def delete_user(request, user_id):
 
 
 # product details
-@api_view(["GET"])
+@api_view()
 @permission_classes([AllowAny])
 def product_details(request, product_id):
     django_request.request = request
@@ -289,8 +296,8 @@ def product_details(request, product_id):
 
 
 # product list
-@api_view(["GET"])
-# @permission_classes([AllowAny])
+@api_view()
+@permission_classes([AllowAny])
 def product_list(request):
     django_request.request = request
     django_request.method = "GET"
@@ -300,51 +307,89 @@ def product_list(request):
 
 # cart list
 @api_view(["GET"])
-def cart_list(request):
-    django_request.request = request
-    django_request.method = "GET"
-    response = item_list(django_request, "cart", CartSerializer)
-    return response
+@permission_classes([AllowAny])
+def cart_list(request, cart_id):
+    try:
+        cart_info = database.child("cart").child(cart_id).get().val()
+
+        if cart_info:
+            cart_items = cart_info.get("cartItems", {})
+            items = []
+
+            for item_data in cart_items.items():
+                if isinstance(item_data, dict):
+                    # Retrieve product details for the current item
+                    product_info = db.reference("products").child(item_data["product_id"]).get().val()
+
+                    if product_info:
+                        item_info = {
+                            "itemname": product_info.get("name", ""),
+                            "itemprice": product_info.get("price", ""),
+                            "itemquantity": item_data.get("itemquantity", ""),
+                        }
+                        items.append(item_info)
+
+            return Response(items, status=status.HTTP_200_OK)
+        else:
+            response_data = {
+                "message": f"Cart with ID {cart_id} not found.",
+            }
+            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
+
+    except Exception as e:
+        response_data = {
+            "error": f"Failed to retrieve cart items: {str(e)}",
+        }
+        return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# update product info
-@api_view()
-def update_product(request, product_id):
-    django_request.request = request
-    django_request.method = "GET"
-    return update_entry(django_request, product_id, "products", ProductSerializer)
+# Update item in the cart
+@api_view(["PUT"])
+@permission_classes([AllowAny])
+def update_cart_item(request, cart_id, item_id):
+    product_id = request.data.get('product_id')
+    new_quantity = request.data.get('quantity', 1)
 
+    # Update the quantity of the specified item in the cart
+    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").child(item_id)
+    cart_item_ref.update({'product_id':product_id, 'itemquantity': new_quantity})
 
-# delete product
-@api_view(["GET"])
-def delete_product(request, product_id):
-    django_request.request = request
-    django_request.method = "GET"
-    return delete_item(django_request, product_id, "products")
+    # Retrieve updated cart_item details
+    cart_item_details = cart_item_ref.get().val()
 
+    response_data = {
+        'cart_id': {
+            'items': {
+                f'{item_id}': {
+                    'itemID': cart_item_details.get('product_id', ''),  # Replace with actual itemID field
+                    'itemquantity': cart_item_details.get('itemquantity', ''),
+                }
+            },
+        }
+    }
 
-# Cart
+    return Response(response_data, status=status.HTTP_200_OK)
 
-
-# update cart
-@api_view(["GET", "POST"])
-def update_cart(request, cart_id):
-    django_request.request = request
-    django_request.method = "POST"
-    return update_entry(django_request, cart_id, "cart", CartSerializer)
-
-
-# delete cart
+# Delete item from the cart
 @api_view(["DELETE"])
-def delete_cart(request, cart_id):
-    django_request.request = request
-    django_request.method = "POST"
-    return delete_item(django_request, cart_id, "cart")
+@permission_classes([AllowAny])
+def delete_cart_item(request, cart_id, item_id):
+
+    # Delete the specified item from the cart
+    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").child(item_id)
+    cart_item_ref.remove()
+
+    response_data = {
+        'message': 'Item deleted successfully',
+    }
+
+    return Response(response_data, status=status.HTTP_204_NO_CONTENT)
 
 
 # Orders
 # place order
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def place_order(request):
     try:
         node_serializer = OrderSerializer(data=request.data)
@@ -371,7 +416,8 @@ def place_order(request):
 
 
 # order list
-@api_view(["GET"])
+@api_view()
+@permission_classes([IsAuthenticated])
 def order_list(request):
     django_request.request = request
     django_request.method = "POST"
@@ -379,8 +425,44 @@ def order_list(request):
 
 
 # delete order
-@api_view(["GET"])
+@api_view()
+@permission_classes([IsAuthenticated])
 def delete_order(request, order_id):
     django_request.request = request
     django_request.method = "POST"
     return delete_item(request, order_id, "orders")
+
+
+# add item to cart
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def create_cart(request):
+    user_id = str(request.user.uid)
+    product_id = request.data.get('product_id')
+    quantity = request.data.get('quantity', 1)
+
+    # Create a new cart entry with user_id
+    cart_data = {'userID': user_id, 'cartItems': {}}
+    cart_ref = database.child("cart").push(cart_data)
+    cart_id = cart_ref['name']
+
+    # Create a new cart_item entry
+    cart_item_data = {'itemID': product_id, 'itemquantity': quantity}
+    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").push(cart_item_data)
+    cart_item_id = product_id
+
+    # Retrieve cart_item details
+    cart_item_details = database.child("cart").child(cart_id).child("cartItems").child(cart_item_id).get().val()
+
+    response_data = {
+        'cart_id': {
+            'items': {
+                f'{cart_item_id}': {
+                    'itemID': cart_item_details.get('itemID', ''),  # Replace with actual itemID field
+                    'itemquantity': cart_item_details.get('itemquantity', ''),
+                }
+            },
+            'user_id': user_id,
+        }
+    }
+    return Response(response_data, status=status.HTTP_201_CREATED)

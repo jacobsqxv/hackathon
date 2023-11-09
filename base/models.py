@@ -14,16 +14,16 @@ class Product(models.Model):
     product_id = models.CharField(max_length=250, blank=True)
     name = models.CharField(max_length=250)
     description = models.TextField(default="Product Description")
+    sub_description = models.CharField(max_length=100, default="Product Description")
     price = models.CharField(max_length=10)
-    image_url = models.CharField(max_length=250)
+    image_url = models.CharField(max_length=500)
+    image_url_3d = models.CharField(max_length=500)
     color = models.CharField(max_length=20, blank=True)
     badge = models.CharField(max_length=20, blank=True, null=True)
 
 
 class Cart(models.Model):
-    user_id = models.CharField(max_length=250)
     cart_id = models.CharField(max_length=250, blank=True)
-    product_id = models.CharField(max_length=250)
     
 
 class CartItem(models.Model):
