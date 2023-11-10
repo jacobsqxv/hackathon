@@ -28,8 +28,10 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items", null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='cartitems')
-    quantity = models.CharField(max_length=3)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='cartitems')
+    itemname = models.CharField(max_length=250)
+    itemprice = models.CharField(max_length=10)
+    itemquantity = models.CharField(max_length=3)
 
 class Order(models.Model):
     order_id = models.CharField(max_length=250, blank=True)

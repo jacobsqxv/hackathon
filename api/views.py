@@ -36,10 +36,9 @@ def apiOverview(request):
         "Products": "/products/",
         "Add": "/products/add/",
         "View": "/products/<str:product_id>/",
-        "Delete": "/products/delete/<str:product_id>/",
-        "Cart": "/cart/",
-        "Add Item to Cart": "/cart/add",
-        "Delete Cart Items": "/cart/delete/<str:cart_id>/",
+        "Cart": "/cart/<str:cart_id>/",
+        "Add Item to Cart": "/cart/update/<str:cart_id>/<str:item_id>/",
+        "Delete Cart Items": "/cart/delete/<str:cart_id>/<str:item_id>/",
         "Orders List": "/orders/",
         "Add Order": "/orders/add",
         "Delete Order": "/orders/delete/<str:order_id>/",
@@ -306,33 +305,37 @@ def product_list(request):
 
 
 # cart list
-@api_view(["GET"])
+@api_view()
 @permission_classes([AllowAny])
 def cart_list(request, cart_id):
     try:
-        cart_info = database.child("cart").child(cart_id).get().val()
+        # Retrieve cart details
+        cart_details = database.child("cart").child(cart_id).get().val()
 
-        if cart_info:
-            cart_items = cart_info.get("cartItems", {})
+        if cart_details and "cartItems" in cart_details:
+            cart_items = cart_details["cartItems"]
+
             items = []
+            for item_id, item_data in cart_items.items():
+                product_id = item_data.get("product_id")
+                product_details = database.child("products").child(product_id).get().val()
 
-            for item_data in cart_items.items():
-                if isinstance(item_data, dict):
-                    # Retrieve product details for the current item
-                    product_info = db.reference("products").child(item_data["product_id"]).get().val()
+                if product_details:
+                    item_info = {
+                        "itemname": product_details.get("name", ""),
+                        "itemprice": product_details.get("price", ""),
+                        "itemquantity": item_data.get("itemquantity", ""),
+                    }
+                    items.append(item_info)
 
-                    if product_info:
-                        item_info = {
-                            "itemname": product_info.get("name", ""),
-                            "itemprice": product_info.get("price", ""),
-                            "itemquantity": item_data.get("itemquantity", ""),
-                        }
-                        items.append(item_info)
-
-            return Response(items, status=status.HTTP_200_OK)
+            item_serializer = CartSerializer(data=items, many=True)
+            if item_serializer.is_valid():
+                return Response(item_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(item_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             response_data = {
-                "message": f"Cart with ID {cart_id} not found.",
+                "message": f"Cart with ID {cart_id} not found or does not have cartItems.",
             }
             return Response(response_data, status=status.HTTP_404_NOT_FOUND)
 
@@ -341,7 +344,6 @@ def cart_list(request, cart_id):
             "error": f"Failed to retrieve cart items: {str(e)}",
         }
         return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 # Update item in the cart
 @api_view(["PUT"])

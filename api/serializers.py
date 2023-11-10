@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Product, Order, Cart
+from base.models import Product, Order, Cart, CartItem
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
@@ -33,6 +33,10 @@ class CartSerializer(serializers.ModelSerializer):
 
             return data
 
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ['itemname', 'itemprice', 'itemquantity', 'product_id']
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
