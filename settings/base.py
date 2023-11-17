@@ -4,6 +4,8 @@ import os, django_heroku
 
 load_dotenv()
 
+PORT = os.environ.get("PORT", 8000)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -85,7 +87,7 @@ AUTH_USER_MODEL = "base.MyUser"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework.authentication.BasicAuthentication',
+        "rest_framework.authentication.BasicAuthentication",
         # 'api.authentication.FirebaseAuthentication',
         "rest_framework.authentication.SessionAuthentication",
     ],
