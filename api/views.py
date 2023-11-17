@@ -71,6 +71,7 @@ def create_user(request, format=None):
     except Exception as e:
         return Response({"error": "Failed to create user: " + str(e)}, status=400)
 
+
 # sign in user
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -83,11 +84,11 @@ def sign_in_user(request, format=None):
             email=email,
             password=password,
         )
-        auth_token = user['idToken']
+        auth_token = user["idToken"]
         response = Response({"auth_token": auth_token}, status=200)
-        response['Authorization'] = f'{auth_token}'  
-        print(response) 
-        return response 
+        response["Authorization"] = f"{auth_token}"
+        print(response)
+        return response
     except Exception as e:
         return Response({"error": "Failed to sign in: " + str(e)}, status=400)
 
@@ -224,6 +225,7 @@ def item_details(request, key, child_node):
         }
         return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 # delete record
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
@@ -282,9 +284,6 @@ def delete_user(request, user_id):
     return delete_item(django_request, user_id, "users")
 
 
-# Products
-
-
 # product details
 @api_view()
 @permission_classes([AllowAny])
@@ -318,7 +317,9 @@ def cart_list(request, cart_id):
             items = []
             for item_id, item_data in cart_items.items():
                 product_id = item_data.get("product_id")
-                product_details = database.child("products").child(product_id).get().val()
+                product_details = (
+                    database.child("products").child(product_id).get().val()
+                )
 
                 if product_details:
                     item_info = {
@@ -332,7 +333,9 @@ def cart_list(request, cart_id):
             if item_serializer.is_valid():
                 return Response(item_serializer.data, status=status.HTTP_200_OK)
             else:
-                return Response(item_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    item_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+                )
         else:
             response_data = {
                 "message": f"Cart with ID {cart_id} not found or does not have cartItems.",
@@ -345,26 +348,28 @@ def cart_list(request, cart_id):
         }
         return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 # Update item in the cart
 @api_view(["PUT"])
 @permission_classes([AllowAny])
 def update_cart_item(request, cart_id, item_id):
-    product_id = request.data.get('product_id')
-    new_quantity = request.data.get('quantity', 1)
+    product_id = request.data.get("product_id")
+    new_quantity = request.data.get("quantity", 1)
 
     # Update the quantity of the specified item in the cart
-    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").child(item_id)
-    cart_item_ref.update({'product_id':product_id, 'itemquantity': new_quantity})
+    cart_item_ref = (
+        database.child("cart").child(cart_id).child("cartItems").child(item_id)
+    )
+    cart_item_ref.update({"product_id": product_id, "itemquantity": new_quantity})
 
-    # Retrieve updated cart_item details
     cart_item_details = cart_item_ref.get().val()
 
     response_data = {
-        'cart_id': {
-            'items': {
-                f'{item_id}': {
-                    'itemID': cart_item_details.get('product_id', ''),  # Replace with actual itemID field
-                    'itemquantity': cart_item_details.get('itemquantity', ''),
+        "cart_id": {
+            "items": {
+                f"{item_id}": {
+                    "itemID": cart_item_details.get("product_id", ""),
+                    "itemquantity": cart_item_details.get("itemquantity", ""),
                 }
             },
         }
@@ -372,17 +377,19 @@ def update_cart_item(request, cart_id, item_id):
 
     return Response(response_data, status=status.HTTP_200_OK)
 
+
 # Delete item from the cart
 @api_view(["DELETE"])
 @permission_classes([AllowAny])
 def delete_cart_item(request, cart_id, item_id):
-
     # Delete the specified item from the cart
-    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").child(item_id)
+    cart_item_ref = (
+        database.child("cart").child(cart_id).child("cartItems").child(item_id)
+    )
     cart_item_ref.remove()
 
     response_data = {
-        'message': 'Item deleted successfully',
+        "message": "Item deleted successfully",
     }
 
     return Response(response_data, status=status.HTTP_204_NO_CONTENT)
@@ -440,31 +447,40 @@ def delete_order(request, order_id):
 @permission_classes([IsAuthenticated])
 def create_cart(request):
     user_id = str(request.user.uid)
-    product_id = request.data.get('product_id')
-    quantity = request.data.get('quantity', 1)
+    product_id = request.data.get("product_id")
+    quantity = request.data.get("quantity", 1)
 
     # Create a new cart entry with user_id
-    cart_data = {'userID': user_id, 'cartItems': {}}
+    cart_data = {"userID": user_id, "cartItems": {}}
     cart_ref = database.child("cart").push(cart_data)
-    cart_id = cart_ref['name']
+    cart_id = cart_ref["name"]
 
     # Create a new cart_item entry
-    cart_item_data = {'itemID': product_id, 'itemquantity': quantity}
-    cart_item_ref = database.child("cart").child(cart_id).child("cartItems").push(cart_item_data)
+    cart_item_data = {"itemID": product_id, "itemquantity": quantity}
+    cart_item_ref = (
+        database.child("cart").child(cart_id).child("cartItems").push(cart_item_data)
+    )
     cart_item_id = product_id
 
     # Retrieve cart_item details
-    cart_item_details = database.child("cart").child(cart_id).child("cartItems").child(cart_item_id).get().val()
+    cart_item_details = (
+        database.child("cart")
+        .child(cart_id)
+        .child("cartItems")
+        .child(cart_item_id)
+        .get()
+        .val()
+    )
 
     response_data = {
-        'cart_id': {
-            'items': {
-                f'{cart_item_id}': {
-                    'itemID': cart_item_details.get('itemID', ''),  # Replace with actual itemID field
-                    'itemquantity': cart_item_details.get('itemquantity', ''),
+        "cart_id": {
+            "items": {
+                f"{cart_item_id}": {
+                    "itemID": cart_item_details.get("itemID", ""),
+                    "itemquantity": cart_item_details.get("itemquantity", ""),
                 }
             },
-            'user_id': user_id,
+            "user_id": user_id,
         }
     }
     return Response(response_data, status=status.HTTP_201_CREATED)
