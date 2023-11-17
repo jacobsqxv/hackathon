@@ -31,10 +31,12 @@ class CartSerializer(serializers.ModelSerializer):
 
             return data
 
+
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['itemname', 'itemprice', 'itemquantity', 'product_id']
+        fields = ["itemname", "itemprice", "itemquantity", "product_id"]
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
